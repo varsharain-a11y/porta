@@ -5,7 +5,7 @@ require 'etc'
 app_path = Pathname.pwd
 
 
-Unicorn::HttpServer::START_CTX[0] = '/usr/local/bin/unicorn'
+Unicorn::HttpServer::START_CTX[0] = `bundle exec which unicorn`.strip
 
 working_directory app_path.to_s
 
