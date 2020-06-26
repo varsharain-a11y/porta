@@ -3,7 +3,7 @@ Given /^(provider "[^"]*") has config value "([^"]*)" set to (true|false)$/ do |
   raise 'Use specific settings step!'
 end
 
-Given /^(provider "[^"]*") has signup (enabled|disabled)$/ do |provider, value|
+Given '{provider} has signup {enabled or disabled}' do |provider, value|
   if value == 'enabled'
     provider.enable_signup!
   else
@@ -11,7 +11,7 @@ Given /^(provider "[^"]*") has signup (enabled|disabled)$/ do |provider, value|
   end
 end
 
-Given /^(provider "[^"]*") has multiple applications (enabled|disabled)$/ do |provider, value|
+Given '{provider} has multiple applications {enabled or disabled}' do |provider, value|
   if value == 'enabled'
     provider.settings.allow_multiple_applications!
     provider.settings.show_multiple_applications!
@@ -20,7 +20,7 @@ Given /^(provider "[^"]*") has multiple applications (enabled|disabled)$/ do |pr
   end
 end
 
-Given /^the provider has multiple applications (enabled|disabled)$/ do |value|
+Given '{the provider} has multiple applications {enabled or disabled}' do |value|
   step %(provider "#{provider_or_master_name}" has multiple applications #{value})
 end
 

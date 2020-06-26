@@ -9,13 +9,7 @@ def import_simple_layout(provider)
   end
 end
 
-Given(/^a provider "([^"]*)" signed up to (plan "[^"]*")$/) do |name, plan|
-  @provider = FactoryBot.create(:provider_account_with_pending_users_signed_up_to_no_plan,
-                      org_name: name,
-                      domain: name,
-                      self_domain: "admin.#{name}")
-  @provider.application_contracts.delete_all
-
+Given('{a provider} signed up to {a plan}') do |provider, plan|
   unless @provider.bought?(plan)
     @provider.buy!(plan, name: 'Default', description: 'Default')
   end

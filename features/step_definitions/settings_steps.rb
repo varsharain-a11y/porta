@@ -2,7 +2,7 @@ Given /^(provider "[^\"]*") has "([^\"]*)" disabled$/ do |account, toggle|
   account.settings.update_attribute("#{underscore_spaces(toggle)}_enabled", false)
 end
 
-Given /^(provider "[^\"]*") has "([^\"]*)" enabled$/ do |account, toggle|
+Given '{provider} has {toggle} enabled' do |account, toggle|
   account.settings.update_attribute("#{underscore_spaces(toggle)}_enabled", true)
 end
 

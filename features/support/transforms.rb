@@ -31,11 +31,35 @@ ParameterType(
   name: 'org_name',
   regexp: /account "(.+?)"/,
   transformer: -> (org_name) {  Account.find_by_org_name!(org_name) }
+)
 
+
+ParameterType(
+  name: 'enabled or disabled',
+  regexp: /enabled|disabled/,
+  transformer: -> (value) { value }
 )
 
 ParameterType(
-  name: 'the_provider',
+  name: 'toggle',
+  regexp: /\w+/,
+  transformer: -> (value) { value }
+)
+
+ParameterType(
+  name: 'a provider',
+  regexp: /a provider "(.+?)"/,
+  transformer: -> (name) {
+    @provider = FactoryBot.create(:provider_account_with_pending_users_signed_up_to_no_plan,
+      org_name: name,
+      domain: name,
+      self_domain: "admin.#{name}")
+    @provider.application_contracts.delete_all
+  }
+)
+
+ParameterType(
+  name: 'the provider',
   regexp: /the provider/,
   transformer: -> { @provider or raise ActiveRecord::RecordNotFound, "@provider does not exist" }
 )
@@ -212,7 +236,7 @@ ParameterType(
 )
 
 ParameterType(
-  name: 'plan',
+  name: 'a plan',
   regexp: /plan "(.+?)"/,
   transformer: -> (name) { Plan.find_by_name!(name) }
 )
