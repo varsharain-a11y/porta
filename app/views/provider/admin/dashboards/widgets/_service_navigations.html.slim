@@ -1,19 +1,20 @@
 nav.DashboardNavigation
   ul.DashboardNavigation-list
 
-    - if can?(:manage, :plans)
-      li.DashboardNavigation-list-item
-        // Overview
-        => dashboard_navigation_link 'Overview',
-                                     admin_service_path(service),
-                                     icon_name: 'map'
+  - if can?(:manage, :plans)
+    li.DashboardNavigation-list-item
+      // Overview
+      => dashboard_navigation_link 'Overview',
+                                   admin_service_path(service),
+                                   icon_name: 'map'
 
-    - if can?(:manage, :monitoring)
-      li.DashboardNavigation-list-item
-        => dashboard_navigation_link 'Analytics',
-                                     admin_service_stats_usage_path(service),
-                                     icon_name: 'bar-chart'
+  - if can?(:manage, :monitoring)
+    li.DashboardNavigation-list-item
+      => dashboard_navigation_link 'Analytics',
+                                   admin_service_stats_usage_path(service),
+                                   icon_name: 'bar-chart'
 
+  - if widget.loaded?
     - if service.cinstances.any?
       li.DashboardNavigation-list-item
         // Applications
