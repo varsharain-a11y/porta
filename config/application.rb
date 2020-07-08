@@ -201,6 +201,10 @@ module System
     config.domain_substitution = ActiveSupport::OrderedOptions.new
     config.domain_substitution.merge!(try_config_for(:domain_substitution) || {})
 
+    config.three_scale.cors = ActiveSupport::OrderedOptions.new
+    config.three_scale.cors.enabled = false
+    config.three_scale.cors.merge!(try_config_for(:cors) || {})
+
     three_scale = config_for(:settings).symbolize_keys
     three_scale[:error_reporting_stages] = three_scale[:error_reporting_stages].to_s.split(/\W+/)
 
@@ -223,11 +227,13 @@ module System
     require 'three_scale/domain_substitution'
     require 'three_scale/middleware/multitenant'
     require 'three_scale/middleware/dev_domain'
+    require 'three_scale/middleware/cors'
 
     config.middleware.use ThreeScale::Middleware::Multitenant, :tenant_id
     config.middleware.use ThreeScale::Middleware::DevDomain, config.three_scale.dev_domain_regexp, config.three_scale.dev_domain_replacement if config.three_scale.dev_domain
     config.middleware.insert_before Rack::Runtime, Rack::UTF8Sanitizer
     config.middleware.insert_before Rack::Runtime, Rack::XServedBy # we can pass hashed hostname as parameter
+    config.middleware.insert_before 0, ThreeScale::Middleware::Cors
 
     config.unicorn  = ActiveSupport::OrderedOptions[after_fork: []]
     config.unicorn.after_fork << MessageBus.method(:after_fork)
