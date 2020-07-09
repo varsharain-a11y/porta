@@ -15,6 +15,7 @@ const ApplicationsPage = React.lazy(() => import('components/pages/applications/
 const AccountsIndexPage = React.lazy(() => import('components/pages/accounts/AccountsIndexPage'))
 const ProductPage = React.lazy(() => import('components/pages/product/ProductPage'))
 const EditProductPage = React.lazy(() => import('components/pages/product/EditProductPage'))
+const CreateProductPage = React.lazy(() => import('components/pages/product/CreateProductPage'))
 
 const PagesSwitch = () => (
   <SwitchWith404>
@@ -31,7 +32,7 @@ const PagesSwitch = () => (
       exact
       render={({ match }) => <EditProductPage productId={match.params.productId} />}
     />
-
+    <LazyRoute path="/products/new" exact render={() => <CreateProductPage />} />
     <Redirect path="/overview" to="/" exact />
   </SwitchWith404>
 )
