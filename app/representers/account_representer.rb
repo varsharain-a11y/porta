@@ -57,8 +57,8 @@ class AccountRepresenter < ThreeScale::Representer
   delegate :settings, to: :represented
 
   class JSON < AccountRepresenter
-    # include Roar::JSON
-    include ThreeScale::JSONRepresenter
+    include Roar::JSON
+    # include ThreeScale::JSONRepresenter
 
     wraps_resource :account
 
