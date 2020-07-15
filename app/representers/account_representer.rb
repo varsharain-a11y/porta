@@ -59,6 +59,8 @@ class AccountRepresenter < ThreeScale::Representer
     # include Roar::JSON
     include ThreeScale::JSONRepresenter
 
+    wraps_resource :account
+
     link :self do
       admin_api_account_url(self) unless represented.provider?
     end
@@ -70,5 +72,7 @@ class AccountRepresenter < ThreeScale::Representer
 
   class XML < AccountRepresenter
     include Roar::XML
+
+    wraps_resource :account
   end
 end
