@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class AccountRepresenter < ThreeScale::Representer
-  include ThreeScale::JSONRepresenter
-  include Roar::XML
   include FieldsRepresenter
   include ExtraFieldsRepresenter
 
@@ -64,4 +62,13 @@ class AccountRepresenter < ThreeScale::Representer
 
   delegate :monthly_charging_enabled, :monthly_billing_enabled, to: :settings, allow_nil: true
   delegate :settings, to: :represented
+
+  class JSON < AccountRepresenter
+    # include Roar::JSON
+    include ThreeScale::JSONRepresenter
+  end
+
+  class XML < AccountRepresenter
+    include Roar::XML
+  end
 end
