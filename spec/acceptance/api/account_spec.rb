@@ -219,22 +219,3 @@ resource "Account" do
     end
   end
 end
-
-
-__END__
-admin_api_accounts GET    /admin/api/accounts(.:format)      admin/api/accounts#index {:format=>"xml"}
- admin_api_account GET    /admin/api/accounts/:id(.:format)  admin/api/accounts#show {:format=>"xml"}
-                   PUT    /admin/api/accounts/:id(.:format)  admin/api/accounts#update {:format=>"xml"}
-                   DELETE /admin/api/accounts/:id(.:format)  admin/api/accounts#destroy {:format=>"xml"}
-
-       find_admin_api_accounts GET    /admin/api/accounts/find(.:format)                admin/api/accounts#find {:format=>"xml"}
- change_plan_admin_api_account PUT    /admin/api/accounts/:id/change_plan(.:format)     admin/api/accounts#change_plan {:format=>"xml"}
-make_pending_admin_api_account PUT    /admin/api/accounts/:id/make_pending(.:format)    admin/api/accounts#make_pending {:format=>"xml"}
-     approve_admin_api_account PUT    /admin/api/accounts/:id/approve(.:format)         admin/api/accounts#approve {:format=>"xml"}
-      reject_admin_api_account PUT    /admin/api/accounts/:id/reject(.:format)          admin/api/accounts#reject {:format=>"xml"}
-
- buy_admin_api_account_application_plan POST   /admin/api/accounts/:account_id/application_plans/:id/buy(.:format) admin/api/buyers_application_plans#buy {:format=>"xml"}
-    admin_api_account_application_plans GET    /admin/api/accounts/:account_id/application_plans(.:format)         admin/api/buyers_application_plans#index {:format=>"xml"}
-   admin_api_account_buyer_account_plan GET    /admin/api/accounts/:account_id/plan(.:format)                      admin/api/buyer_account_plans#show {:format=>"xml"}
-     buy_admin_api_account_service_plan POST   /admin/api/accounts/:account_id/service_plans/:id/buy(.:format)     admin/api/buyers_service_plans#buy {:format=>"xml"}
-        admin_api_account_service_plans GET    /admin/api/accounts/:account_id/service_plans(.:format)             admin/api/buyers_service_plans#index {:format=>"xml"}
