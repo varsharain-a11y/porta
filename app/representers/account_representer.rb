@@ -7,6 +7,7 @@ class AccountRepresenter < ThreeScale::Representer
   wraps_resource :account
 
   property :id
+  property :org_name
   property :created_at
   property :updated_at
 
