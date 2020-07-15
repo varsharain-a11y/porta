@@ -52,20 +52,20 @@ class AccountRepresenter < ThreeScale::Representer
 
   property :state
 
-  link :self do
-    admin_api_account_url(self) unless represented.provider?
-  end
-
-  link :users do
-    admin_api_account_users_url(self)
-  end
-
   delegate :monthly_charging_enabled, :monthly_billing_enabled, to: :settings, allow_nil: true
   delegate :settings, to: :represented
 
   class JSON < AccountRepresenter
     # include Roar::JSON
     include ThreeScale::JSONRepresenter
+
+    link :self do
+      admin_api_account_url(self) unless represented.provider?
+    end
+
+    link :users do
+      admin_api_account_users_url(self)
+    end
   end
 
   class XML < AccountRepresenter
