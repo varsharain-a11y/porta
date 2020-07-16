@@ -9,7 +9,7 @@ module ExtraFieldsRepresenter
   end
 
   def representable_extra_fields_attrs
-    Array(try(:defined_extra_fields)).map do |field|
+    Array(represented.try(:defined_extra_fields)).map do |field|
       name = field.name
       [ name, { getter: ->(*) { field_value(name) } }]
     end
