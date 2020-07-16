@@ -133,8 +133,7 @@ resource "Account" do
 
     context 'buyer account' do
       it do
-        should have_properties('id', 'org_name').from(resource)
-        should have_properties('state', 'credit_card_stored').from(resource)
+        should have_properties('id', 'org_name', 'state', 'credit_card_stored').from(resource)
         should have_properties('created_at', 'updated_at')
         should have_links('self', 'users')
       end
@@ -181,8 +180,7 @@ resource "Account" do
     context 'buyer account' do
       it('has root') { should have_tag('account') }
 
-      it { should have_tag('monthly_billing_enabled') }
-      it { should have_tag('monthly_charging_enabled') }
+      it { should have_tags('monthly_billing_enabled', 'monthly_charging_enabled') }
 
       context 'if billing address is enabled' do
         include_context 'with billing address set up'
@@ -204,8 +202,7 @@ resource "Account" do
 
       context 'if credit card details stored' do
         include_context 'with credit card details stored'
-        it { should have_tag('credit_card_partial_number') }
-        it { should have_tag('credit_card_expires_on') }
+        it { should have_tags('credit_card_partial_number', 'credit_card_expires_on') }
       end
     end
 
