@@ -32,87 +32,87 @@ resource "Account" do
     end
   end
 
-  # define the api namespace and optional formats it supports
-  api 'accounts' do
-    # get method to the following url will test :index action
-    get '/admin/api/accounts.:format', action: :index
-
-    # similar as above, :show action is defined in spec/support/api/crud.rb
-    get '/admin/api/accounts/:id.:format', action: :show
-
-    # actions are named as methods in controllers
-    delete '/admin/api/accounts/:id.:format', action: :destroy
-
-    # you can pass a block to the definition
-    # in the block you can set up parameters valid for that api endpoint
-    # and set values for the parameters
-    put '/admin/api/accounts/:id.:format', action: :update do
-      parameter :name, 'Account Org Name'
-
-      let(:name) { 'some org name' }
-    end
-
-    # also you can make custom actions using already defined ones
-    get '/admin/api/accounts/find.:format', action: :show do
-      parameter :username, 'User username'
-      parameter :email, 'User email address'
-
-      let(:username) { resource.users.first.username }
-    end
-
-    # or you can just say that it is resource or collection
-    # and appropriate callbacks and values will be set in place
-    put '/admin/api/accounts/:id/make_pending.:format' do
-      include_context "resource"
-
-      before { resource.approve! }
-      before { resource.state.should_not == "pending" }
-
-      # the response code and body are checked automatically
-      # you can adjust it by setting:
-      #   status: number # status code
-      #   body: boolean # if body should be sent or not
-
-      request "Make #{model} pending" do
-        resource.reload.state == "pending"
-      end
-    end
-
-    put '/admin/api/accounts/:id/approve.:format' do
-      include_context "resource"
-      before { resource.make_pending! }
-      before { resource.state.should_not == "approved" }
-
-      request "Approve #{model}" do
-        resource.reload.state == "approved"
-      end
-    end
-
-    put '/admin/api/accounts/:id/reject.:format' do
-      include_context "resource"
-      before { resource.make_pending! }
-      before { resource.state.should_not == "rejected" }
-
-      request "Reject #{model}" do
-        resource.reload.state == "rejected"
-      end
-    end
-
-    post '/admin/api/signup.:format', action: :create do
-      let(:serialized) { representer.send(serialization_format, with_apps: true) }
-
-      parameter :org_name, 'Organization Name of the buyer account'
-      parameter :username, 'Username od the admin user (on the new buyer account)'
-      parameter :email, 'Email of the admin user'
-      parameter :password, 'Password of the admin user'
-
-      let(:password) { 'password' }
-      let(:email) { 'email@example.com' }
-      let(:username) { 'new_user' }
-      let(:org_name) { 'New Signup' }
-    end
-
-  end
+  # # define the api namespace and optional formats it supports
+  # api 'accounts' do
+  #   # get method to the following url will test :index action
+  #   get '/admin/api/accounts.:format', action: :index
+  #
+  #   # similar as above, :show action is defined in spec/support/api/crud.rb
+  #   get '/admin/api/accounts/:id.:format', action: :show
+  #
+  #   # actions are named as methods in controllers
+  #   delete '/admin/api/accounts/:id.:format', action: :destroy
+  #
+  #   # you can pass a block to the definition
+  #   # in the block you can set up parameters valid for that api endpoint
+  #   # and set values for the parameters
+  #   put '/admin/api/accounts/:id.:format', action: :update do
+  #     parameter :name, 'Account Org Name'
+  #
+  #     let(:name) { 'some org name' }
+  #   end
+  #
+  #   # also you can make custom actions using already defined ones
+  #   get '/admin/api/accounts/find.:format', action: :show do
+  #     parameter :username, 'User username'
+  #     parameter :email, 'User email address'
+  #
+  #     let(:username) { resource.users.first.username }
+  #   end
+  #
+  #   # or you can just say that it is resource or collection
+  #   # and appropriate callbacks and values will be set in place
+  #   put '/admin/api/accounts/:id/make_pending.:format' do
+  #     include_context "resource"
+  #
+  #     before { resource.approve! }
+  #     before { resource.state.should_not == "pending" }
+  #
+  #     # the response code and body are checked automatically
+  #     # you can adjust it by setting:
+  #     #   status: number # status code
+  #     #   body: boolean # if body should be sent or not
+  #
+  #     request "Make #{model} pending" do
+  #       resource.reload.state == "pending"
+  #     end
+  #   end
+  #
+  #   put '/admin/api/accounts/:id/approve.:format' do
+  #     include_context "resource"
+  #     before { resource.make_pending! }
+  #     before { resource.state.should_not == "approved" }
+  #
+  #     request "Approve #{model}" do
+  #       resource.reload.state == "approved"
+  #     end
+  #   end
+  #
+  #   put '/admin/api/accounts/:id/reject.:format' do
+  #     include_context "resource"
+  #     before { resource.make_pending! }
+  #     before { resource.state.should_not == "rejected" }
+  #
+  #     request "Reject #{model}" do
+  #       resource.reload.state == "rejected"
+  #     end
+  #   end
+  #
+  #   post '/admin/api/signup.:format', action: :create do
+  #     let(:serialized) { representer.send(serialization_format, with_apps: true) }
+  #
+  #     parameter :org_name, 'Organization Name of the buyer account'
+  #     parameter :username, 'Username od the admin user (on the new buyer account)'
+  #     parameter :email, 'Email of the admin user'
+  #     parameter :password, 'Password of the admin user'
+  #
+  #     let(:password) { 'password' }
+  #     let(:email) { 'email@example.com' }
+  #     let(:username) { 'new_user' }
+  #     let(:org_name) { 'New Signup' }
+  #   end
+  #
+  # end
 
   # we use roar gem and it's representers to extend our objects
   # the extension is done by the responder - app/lib/three_scale/responder.rb
