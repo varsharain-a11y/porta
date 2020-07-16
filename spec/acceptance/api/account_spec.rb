@@ -133,9 +133,10 @@ resource "Account" do
 
     context 'buyer account' do
       it do
-        should have_properties('id', 'org_name', 'state', 'credit_card_stored').from(resource)
+        should have_properties('id', 'org_name', 'state').from(resource)
         should have_properties('created_at', 'updated_at')
         should have_links('self', 'users')
+        subject.fetch('credit_card_stored').should equal(resource.credit_card_stored?)
       end
 
       context 'if billing address is enabled' do
