@@ -190,8 +190,8 @@ resource "Account" do
 
         it 'should have billing address tags' do
           should have_tag('billing_address') {
-            with_tag 'address1', :text => 'first line'
-            with_tag 'address2', :text => 'second line'
+            with_tag 'address1', text: 'first line'
+            with_tag 'address2', text: 'second line'
           }
         end
       end
