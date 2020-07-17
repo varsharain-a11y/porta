@@ -63,11 +63,11 @@ class AccountRepresenter < ThreeScale::Representer
     wraps_resource :account
 
     link :self do
-      admin_api_account_url(self) unless represented.provider?
+      admin_api_account_url(represented) unless represented.provider?
     end
 
     link :users do
-      admin_api_account_users_url(self)
+      admin_api_account_users_url(represented)
     end
   end
 
@@ -75,5 +75,13 @@ class AccountRepresenter < ThreeScale::Representer
     include Roar::XML
 
     wraps_resource :account
+
+    link :self do
+      admin_api_account_url(represented) unless represented.provider?
+    end
+
+    link :users do
+      admin_api_account_users_url(represented)
+    end
   end
 end
