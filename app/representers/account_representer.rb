@@ -11,8 +11,8 @@ class AccountRepresenter < ThreeScale::Representer
   property :created_at
   property :updated_at
 
-  with_options(if: :scheduled_for_deletion?) do
-    property :deletion_date
+  with_options(if: ->(*) { represented.scheduled_for_deletion? }) do
+    property :deletion_date, exec_context: :decorator
   end
 
   with_options(if: ->(*) { provider? }) do
@@ -55,6 +55,10 @@ class AccountRepresenter < ThreeScale::Representer
 
   delegate :monthly_charging_enabled, :monthly_billing_enabled, to: :settings, allow_nil: true
   delegate :settings, to: :represented
+
+  def deletion_date
+    represented.deletion_date.to_s(:iso8601)
+  end
 
   class JSON < AccountRepresenter
     include Roar::JSON
