@@ -11,7 +11,7 @@ module FieldsRepresenter
   def representable_fields_attrs
     Array(represented.try(:defined_builtin_fields)).map do |field|
       name = field.name
-      [name, { getter: ->(options){ field_value(name) } }]
+      [name, { getter: ->(*) { field_value(name) } }]
     end
   end
 end
