@@ -179,7 +179,9 @@ resource "Account" do
 
   xml(:resource) do
     context 'buyer account' do
+      # subject { xml.root }
       it('has root') { should have_tag('account') }
+      # let(:root) { 'account' }
 
       it { should have_tags('monthly_billing_enabled', 'monthly_charging_enabled') }
 
@@ -197,8 +199,13 @@ resource "Account" do
       end
 
       context 'if scheduled_for_deletion' do
-        let(:resource) { account = FactoryBot.create(:provider_account, state_changed_at: Time.zone.now); account.schedule_for_deletion!; account }
-        it { should have_tags(%w[state deletion_date]).from(resource) }
+        before { resource.schedule_for_deletion! }
+        # subject { xml.root }
+        it { pp subject; pp resource.try(:deletion_date).try(:iso8601) }
+        # let(:resource) { account = FactoryBot.create(:provider_account, state_changed_at: Time.zone.now); account.schedule_for_deletion!; account.reload }
+        # it { subject.should have_tags(%w[state deletion_date]).from(resource.reload) }
+        it { should have_tags(%w[state]).from(resource.reload) }
+        it { should have_tags(%w[deletion_date]).from(resource.reload) }
       end
 
       context 'if credit card details stored' do
