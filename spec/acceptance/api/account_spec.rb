@@ -133,8 +133,7 @@ resource "Account" do
 
     context 'buyer account' do
       it do
-        should have_properties('id', 'org_name', 'state').from(resource)
-        should have_properties('created_at', 'updated_at')
+        should have_properties('id', 'org_name', 'state', 'created_at', 'updated_at').from(resource)
         should have_links('self', 'users')
         subject.fetch('credit_card_stored').should equal(resource.credit_card_stored?)
       end
@@ -183,8 +182,7 @@ resource "Account" do
       it('has root') { should have_tag('account') }
 
       it do
-        should have_tags('id', 'org_name', 'state').from(resource)
-        should have_tags('created_at', 'updated_at')
+        should have_tags('id', 'org_name', 'state', 'created_at', 'updated_at').from(resource)
         should have_links('self', 'users')
         subject.fetch('credit_card_stored').should equal(resource.credit_card_stored?)
       end
