@@ -8,8 +8,8 @@ class AccountRepresenter < ThreeScale::Representer
 
   property :id
   property :org_name
-  property :created_at
-  property :updated_at
+  property :created_at, exec_context: :decorator
+  property :updated_at, exec_context: :decorator
 
   with_options(if: ->(*) { represented.scheduled_for_deletion? }) do
     property :deletion_date, exec_context: :decorator
@@ -57,7 +57,18 @@ class AccountRepresenter < ThreeScale::Representer
   delegate :settings, to: :represented
 
   def deletion_date
+    # TODO: DRY
     represented.deletion_date.to_s(:iso8601)
+  end
+
+  def created_at
+    # TODO: DRY
+    represented.created_at.to_s(:iso8601)
+  end
+
+  def updated_at
+    # TODO: DRY
+    represented.updated_at.to_s(:iso8601)
   end
 
   class JSON < AccountRepresenter
