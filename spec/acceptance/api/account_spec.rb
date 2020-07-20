@@ -205,6 +205,7 @@ resource "Account" do
 
       context 'if credit card details stored' do
         include_context 'with credit card details stored'
+        # TODO: check format of date!
         it { should have_tags('credit_card_partial_number', 'credit_card_expires_on') }
       end
     end
