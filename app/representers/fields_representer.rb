@@ -11,6 +11,7 @@ module FieldsRepresenter
   def representable_fields_attrs
     Array(represented.try(:defined_builtin_fields)).map do |field|
       name = field.name
+      # TODO: this is wrong for JSON!
       [name, { getter: ->(*) { v = field_value(name); v.try(:to_xml, skip_instruct: true, root: name) || v.to_s.strip } }]
     end
   end
