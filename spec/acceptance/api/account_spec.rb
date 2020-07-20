@@ -212,8 +212,7 @@ resource "Account" do
 
     context 'provider account' do
       let(:resource) do
-        FactoryBot.create(:provider_account, support_email: 'support@email.com',
-                          finance_support_email: 'finance@email.com', site_access_code: 'access-code')
+        FactoryBot.create(:provider_account, support_email: 'support@email.com', finance_support_email: 'finance@email.com', site_access_code: 'access-code')
       end
 
       it { should have_tags(expected_provider_fields).from(resource) }
