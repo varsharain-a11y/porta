@@ -187,7 +187,7 @@ resource "Account" do
         # subject.fetch('credit_card_stored').should equal(resource.credit_card_stored?)
       end
 
-      it { should have_tags('monthly_billing_enabled', 'monthly_charging_enabled') }
+      it { should have_tags('monthly_billing_enabled', 'monthly_charging_enabled').from(resource.settings) }
 
       context 'if billing address is enabled' do
         include_context 'with billing address set up'
