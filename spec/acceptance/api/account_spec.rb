@@ -183,6 +183,7 @@ resource "Account" do
 
       it do
         should have_tags('id', 'org_name', 'state', 'created_at', 'updated_at').from(resource)
+        # TODO: fix this!
         # should have_links('self', 'users')
         # subject.fetch('credit_card_stored').should equal(resource.credit_card_stored?)
       end
