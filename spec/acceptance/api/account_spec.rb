@@ -180,9 +180,8 @@ resource "Account" do
   xml(:resource) do
     context 'buyer account' do
       before { account.save! }
-      # subject { xml.root }
+
       it('has root') { should have_tag('account') }
-      # let(:root) { 'account' }
 
       it { should have_tags('monthly_billing_enabled', 'monthly_charging_enabled') }
 
