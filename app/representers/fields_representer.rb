@@ -12,7 +12,7 @@ module FieldsRepresenter
     Array(represented.try(:defined_builtin_fields)).map do |field|
       name = field.name
       # TODO: this is wrong for JSON!
-      [name, { getter: ->(*) { v = field_value(name); v.try(:to_xml, skip_instruct: true, root: name) || v.to_s.strip } }]
+      [name, { getter: ->(*) { v = field_value(name); v.try(:to_xml, builder: ThreeScale::XML::Builder.new(skip_instruct: true)) || v.to_s.strip } }]
     end
   end
 end
