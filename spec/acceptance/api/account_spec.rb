@@ -197,6 +197,7 @@ resource "Account" do
 
         it 'should have billing address tags' do
           pp subject # TODO: remove!
+          binding.pry
           should have_tag('billing_address') {
             # TODO: with_tag 'company', text: i_dunno_yet
             with_tag 'address1', text: 'first line'
