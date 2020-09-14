@@ -79,20 +79,18 @@ module CMS
       template.content_tag(:li, button, :id => 'cms-template-delete-button')
     end
 
-    def commit_button(*args)
-      options = args.extract_options!
-      button_html = options[:button_html] ||= {}
+    def action(method, options = {})
+      if handler == :submit
+        button_html = options[:button_html] ||= {}
 
-      unless @object.new_record?
-        button_html.reverse_merge! :title => 'Save the draft'
-        options[:label] ||= "Save"
+        unless @object.new_record?
+          button_html.reverse_merge! :title => 'Save the draft'
+          options[:label] ||= "Save"
+        end
+
+        button_html[:class] ||= 'important-button'
       end
-
-      button_html[:class] ||= 'important-button'
-
-      args << options # ruby 1.8
-
-      super(*args)
+      super(method, options)
     end
 
     def publish_button(*args)
