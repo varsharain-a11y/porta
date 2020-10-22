@@ -1,25 +1,27 @@
-Then /^I should see the partners submenu$/ do
-  step 'I should see the "links":', table(%{
-   | link     |
-   | Accounts      |
-   | Subscriptions |
-   | Export  |
-  })
+# frozen_string_literal: true
+
+Then "I should see the partners submenu" do
+  step 'I should see the "links":', table(%(
+    | link          |
+    | Accounts      |
+    | Subscriptions |
+    | Export        |
+  ))
 end
 
-Then /^I should see the current API is "(.*?)"/ do |name|
+Then "I should see the current API is {string}" do |name|
   within '#mainmenu' do
     assert has_css? '.pf-c-nav__section-title', text: name
   end
 end
 
-Then /^I should see there is no current API/ do
+Then "I should see there is no current API" do
   within '#mainmenu' do
     assert_not has_css? '.pf-c-nav__section-title'
   end
 end
 
-Then /^I should see menu items$/ do |items|
+Then "I should see menu items" do |items|
   items.raw.each do |item|
     within '#mainmenu' do
       assert has_css? 'li', :text => item[0]
@@ -27,50 +29,45 @@ Then /^I should see menu items$/ do |items|
   end
 end
 
-Then /^I should not see menu items$/ do |items|
+Then "I {should} see menu items" do |visible, items|
   items.raw.each do |item|
-    within '#mainmenu' do
-      assert has_no_css? 'li', :text => item[0]
-    end
+    assert visible ? has_css?('li', text: item[0]) : has_no_css?('li', text: item[0])
   end
 end
 
-
-Then /^there should be submenu items$/ do |items|
+Then "there should be submenu items" do |items|
   items.rows.each do |item|
     within '.secondary-nav-item-pf' do
-      assert has_css? 'li', :text => item[0]
+      assert has_css? 'li', text: item[0]
     end
   end
 end
 
-Then /^I choose "(.*?)" in the sidebar$/ do |item|
+Then "I choose {string} in the sidebar" do |item|
   within '#side-tabs' do
     click_link(item)
   end
 end
 
-
-Then /^I should see the help menu items$/ do |items|
+Then "I should see the help menu items" do |items|
   items.rows.each do |item|
     within '.PopNavigation--docs ul.PopNavigation-list' do
-      assert has_css?('li', :text => item[0])
+      assert has_css?('li', text: item[0])
     end
   end
 end
 
 # TODO: replace this with with more generic step?!
-Then %r{^I should still be in the "(.+?)"$} do |menu_item|
-  assert has_css?('li.pf-m-current a', :text => menu_item)
+Then "I should still be in the {string}" do |menu_item|
+  assert has_css?('li.pf-m-current a', text: menu_item)
 end
 
-Then /^I should( not)? see the provider menu$/ do |negative|
+Then "I {should} see the provider menu" do |visible|
   menu = 'ul#tabs li a'
-  assert negative ? has_no_css?(menu) : has_css?(menu)
+  assert visible ? has_css?(menu) : has_no_css?(menu)
 end
 
-
-Given(/^provider "(.*?)" has xss protection options disabled$/) do |arg1|
+Given "provider {string} has xss protection options disabled" do
   settings = current_account.settings
   settings.cms_escape_draft_html = false
   settings.cms_escape_published_html = false
