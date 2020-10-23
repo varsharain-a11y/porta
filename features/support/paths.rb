@@ -65,7 +65,7 @@ module PathsHelper
         signup_path
 
       when /^the login page on ([a-z0-9\.\-]+)$/
-        login_url(:host => $1)
+        login_url(host: $1)
 
       when 'logout'
         logout_path
@@ -77,10 +77,10 @@ module PathsHelper
         '/support'
 
       when 'the password page with invalid password reset token'
-        admin_account_password_path(:password_reset_token => 'bogus')
+        admin_account_password_path(password_reset_token: 'bogus')
 
       when 'the provider password page with invalid password reset token'
-        provider_password_path(:password_reset_token => 'bogus')
+        provider_password_path(password_reset_token: 'bogus')
 
       when 'the billing information wizard page'
         edit_provider_admin_account_path(next_step: 'credit_card')
@@ -336,7 +336,7 @@ module PathsHelper
       when 'the service subscriptions list for provider',
            'the subscriptions admin page',
            /^the subscriptions admin page with (\d+) records? per page$/
-        admin_buyers_service_contracts_path(:per_page => $1)
+        admin_buyers_service_contracts_path(per_page: $1)
 
       #
       # Applications (provider side)
@@ -359,7 +359,7 @@ module PathsHelper
 
       when 'the applications admin page',
            /^the applications admin page with (\d+) records? per page$/
-        admin_buyers_applications_path(:per_page => $1)
+        admin_buyers_applications_path(per_page: $1)
 
       when /^the provider side edit page for application "([^"]*)" of buyer "([^"]*)"$/
         application = Account.find_by_org_name!($2).bought_cinstances.find_by_name!($1)
@@ -379,7 +379,7 @@ module PathsHelper
           /^the buyer accounts page with (\d+) records? per page$/
         admin_buyers_accounts_path(:per_page => $1)
       when /^the ([^ ]*) buyer accounts page$/
-        admin_buyers_accounts_path(:state => $1)
+        admin_buyers_accounts_path(state: $1)
       when 'the new buyer account page'
         new_admin_buyers_account_path
 
@@ -459,7 +459,7 @@ module PathsHelper
         edit_admin_site_usage_rules_path
 
       when /^the "([^"]*)" destroys page$/
-        provider_admin_destroys_path(:kind => $1)
+        provider_admin_destroys_path(kind: $1)
 
       when 'the dns settings page'
         admin_site_dns_path
