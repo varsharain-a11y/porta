@@ -7,6 +7,7 @@ class Api::ProxyRulesControllerTest < ActionDispatch::IntegrationTest
     @provider = FactoryBot.create(:provider_account)
     @service = FactoryBot.create(:service, account: @provider)
     login_provider @provider
+    @service = FactoryBot.create(:service, account: @provider)
   end
 
   test '#index page list all proxy rules' do
