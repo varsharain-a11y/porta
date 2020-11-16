@@ -71,12 +71,6 @@
   }
 }
 
-// DashboardWidget
-// this should be encapsulated within individual widget.
-.DashboardSection--wide .DashboardWidget {
-  width: 100%;
-}
-
 .DashboardWidget {
   @include white-box-shadow;
   float: left;

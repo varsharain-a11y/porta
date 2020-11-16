@@ -7,7 +7,7 @@
 .Dashboard
   div.Dashboard-widgets
     // account level
-    section#audience.DashboardSection.DashboardSection--audience class=('DashboardSection--wide' unless can?(:manage, :plans))
+    section#audience.DashboardSection.DashboardSection--audience
       header.DashboardSection-header
         h1.DashboardSection-title title="Audience"
           i.fa.fa-bullseye>
@@ -26,7 +26,7 @@
       = dashboard_widget :new_accounts if can?(:manage, :partners)
       = dashboard_widget :potential_upgrades if can?(:manage, :plans)
 
-    section#apis.DashboardSection.DashboardSection--services class=('DashboardSection--wide' unless can?(:manage, :plans))
+    section#apis.DashboardSection.DashboardSection--services
       - unless current_user.access_to_service_admin_sections?
         = render 'shared/service_access'
       - else
