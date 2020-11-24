@@ -33,7 +33,7 @@ When "I select {string} as default plan" do |plan|
   end
 end
 
-Then "I {should} see {string} in the default plans list" do |plan_name|
+Then "I {should} see {string} in the default plans list" do |visible, plan_name|
   method = visible ? :have_content : :have_no_content
   # if React default plan select
   if (select = find(:css, '#default_plan_card .pf-c-select'))
