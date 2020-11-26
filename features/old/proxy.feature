@@ -45,14 +45,6 @@ Feature: Proxy integration
     And I follow "Download the NGINX Config files"
     Then I should be offered to download an "application/zip" file
 
-  Scenario: Redirect url with rolling updates
-    And I go to the integration page for service "one"
-    Then I should not see "Redirect"
-
-    When I have proxy_pro feature enabled
-    And I go to the integration page for service "one"
-    Then I should see "Redirect"
-
   Scenario: Edit endpoint with proxy_pro
     Given all the rolling updates features are off
     When I have proxy_pro feature enabled
@@ -81,18 +73,17 @@ Feature: Proxy integration
     And I go to the integration page for service "one"
     Then I should see "A valid APIcast Policies endpoint must be provided"
 
-  @javascript
-  Scenario: Sorting mapping rules
+  @wip
+  Scenario: Mapping rules position
+    # This test should pass
     And I go to the integration show page for service "one"
-    And I press "Start using the latest APIcast"
-    And I go to the integration page for service "one"
-    And I toggle "Mapping Rules"
-    And I add a new mapping rule with method "POST" pattern "/beers" delta "2" and metric "hits"
-    And I add a new mapping rule with method "PUT" pattern "/mixers" delta "1" and metric "hits"
-    And I drag the last mapping rule to the position 1
-    And I save the proxy config
+    And I follow "Mapping Rules"
+    And I add a new mapping rule with method "POST" pattern "/beers" delta "2" and metric "Hits"
+    And I add a new mapping rule with method "PUT" pattern "/mixers" delta "2" and metric "Hits"
+    And I add a new mapping rule with method "GET" pattern "/gins" delta "1" and metric "Hits"
     Then the mapping rules should be in the following order:
       | http_method | pattern | delta | metric |
-      | POST        | /beers  | 2     | hits   |
-      | GET         | /       | 1     | hits   |
-      | PUT         | /mixers | 1     | hits   |
+      | POST        | /gins   | 1     | hits   |
+      | GET         | /       | 2     | hits   |
+      | PUT         | /mixers | 3     | hits   |
+      | POST        | /beers  | 4     | hits   |

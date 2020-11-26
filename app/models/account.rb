@@ -562,8 +562,9 @@ class Account < ApplicationRecord
     end
   end
 
+  # always true because apiap, will remove in #2190
   def independent_mapping_rules_enabled?
-    provider_can_use?(:api_as_product) || provider_can_use?(:independent_mapping_rules)
+    provider_can_use?(:api_as_product)
   end
 
   private
