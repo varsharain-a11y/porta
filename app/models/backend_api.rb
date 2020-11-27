@@ -38,8 +38,6 @@ class BackendApi < ApplicationRecord
 
   alias_attribute :api_backend, :private_endpoint
 
-  # TODO: remove attribute private_endpoint
-  before_validation :set_port_private_endpoint
   after_create :create_default_metrics
 
   has_system_name(uniqueness_scope: [:account_id])
@@ -106,10 +104,6 @@ class BackendApi < ApplicationRecord
 
   def schedule_deletion
     DeleteObjectHierarchyWorker.perform_later(self)
-  end
-
-  def set_port_private_endpoint
-    Proxy::PortGenerator.new(self).call(:private_endpoint)
   end
 
   def validate_destroyed_by_association_or_not_used_by_services
