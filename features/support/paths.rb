@@ -307,9 +307,6 @@ module PathsHelper
       when /^the new application page for service "([^"]*)"$/
         service = Service.find_by_name!($1)
         new_admin_application_path(:service_id => service.id)
-
-      when /^my application page$/
-        admin_application_path(@application)
       when /^the "([^"]*)" application page$/
         cinstance = Cinstance.find_by_name!($1)
         admin_application_path(cinstance)
@@ -318,7 +315,6 @@ module PathsHelper
         edit_admin_application_path(cinstance)
       when 'the API access details page'
         admin_applications_access_details_path
-
       when /^the alerts page of application "(.+?)"$/
         cinstance = Cinstance.find_by_name!($1)
         admin_application_alerts_path(cinstance)
