@@ -80,6 +80,7 @@ module PathsHelper
         '/support'
 
       when 'the password page with invalid password reset token'
+        # FIXME: should be "/admin/account/password?password_reset_token=bogus"
         admin_account_password_path(password_reset_token: 'bogus')
 
       when 'the provider password page with invalid password reset token'
@@ -326,7 +327,7 @@ module PathsHelper
       when 'the service subscription page'
         new_admin_service_contract_path
 
-      when /the services list for buyers( page)?$/
+      when 'the services list page for buyers'
         admin_buyer_services_path
 
       when 'the service subscriptions list for provider',
