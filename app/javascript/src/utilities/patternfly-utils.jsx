@@ -22,7 +22,7 @@ export const toSelectOptionObject = (item: Record): SelectOptionObject => ({
 })
 
 type Props = Record & {
-  disabled?: boolean | void
+  disabled?: boolean
 }
 
 export const toSelectOption = ({ id, name, disabled = false }: Props) => (
