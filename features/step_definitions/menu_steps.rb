@@ -21,14 +21,6 @@ Then "I should see there is no current API" do
   end
 end
 
-Then "I should see menu items" do |items|
-  items.raw.each do |item|
-    within '#mainmenu' do
-      assert has_css? 'li', :text => item[0]
-    end
-  end
-end
-
 Then "I {should} see menu items" do |visible, items|
   items.raw.each do |item|
     assert visible ? has_css?('li', text: item[0]) : has_no_css?('li', text: item[0])
