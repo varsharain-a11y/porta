@@ -51,9 +51,9 @@ Given "{provider} has a page at {string} with content" do |provider, path, conte
   end
 end
 
-Given "{provider} has a public page at {string} with content" do |provider, path, string|
-  step %(provider "#{provider}" has a page at "#{path}" with content), string
-  step %(the page at "#{path}" of provider "#{provider}" is public)
+Given "provider {string} has a public page at {string} with content" do |org_name, path, string|
+  step %(provider "#{org_name}" has a page at "#{path}" with content), string
+  step %(the page at "#{path}" of provider "#{org_name}" is public)
 end
 
 Given "there are no pages" do

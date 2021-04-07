@@ -588,14 +588,14 @@ module PathsHelper
         admin_account_invoices_path
 
       when /^the invoices of (account ".+?") page$/
-        account = Transform $1
+        account = Account.find_by!(org_name: $1)
         admin_buyers_account_invoices_path(account)
 
       when /^the invoices issued by me$/
         admin_finance_invoices_path
 
       when /^the (invoice ".+?") page$/
-        invoice = Transform $1
+        invoice = Invoice.find_by!(id: $1)
         admin_finance_account_invoice_path(invoice.buyer_account, invoice)
 
       when /^the invoices page$/
@@ -631,10 +631,12 @@ module PathsHelper
       when 'the service definition page'
         admin_service_metrics_path(provider_first_service!)
       when /^the integration show page for (service ".+?")/
-        admin_service_integration_path(Transform $1)
+        service = Service.find_by!(name: $1)
+        admin_service_integration_path(service)
       when /^the integration page for (service ".+?")/
         # TODO: THREESCALE-3759 edit page no longer exist, remove or replace
-        edit_admin_service_integration_path(Transform $1)
+        service = Service.find_by!(name: $1)
+        edit_admin_service_integration_path(service)
 
       when 'the 404 page'
         '/the-404-page'

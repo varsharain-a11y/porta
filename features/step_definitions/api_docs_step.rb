@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-Given "provider {string} has a swagger 1.0$" do |org_name|
+Given "provider {string} has a swagger 1.0" do |org_name|
   provider = Account.providers.find_by org_name: org_name
 
   active_docs = provider.api_docs_services.build name: "Echo"
