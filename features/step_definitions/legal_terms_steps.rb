@@ -22,7 +22,7 @@ end
 
 When "I select {string} legal term {string}" do |term, scope|
   select = find :xpath, "//fieldset[@name='#{scope}']//select"
-  value = select.find(:xpath, XPath::HTML.option(term))
+  value = select.find(:option, text: term)
 
   case select.native
   when Nokogiri::XML::Element, String

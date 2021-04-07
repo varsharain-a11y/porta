@@ -89,12 +89,7 @@ When "(I )select {string} from {string}" do |value, field|
   else
     # DEPRECATED: remove when all selects have been replaced for PF4
     ThreeScale::Deprecation.warn "[cucumber] Detected a form not using PF4 css"
-    select = find(:xpath, XPath::HTML.select(field))
-    if select.native.is_a?(Nokogiri::XML::Element) || select.native.is_a?(String) # a String means capybara-webkit
-      select.find(:xpath, XPath::HTML.option(value)).select_option
-    else # this is selenium, needs slightly different treatment
-      select.find(:xpath, XPath::HTML.option(value)).click
-    end
+    find_field(field).find(:option, value).select_option
   end
 end
 
