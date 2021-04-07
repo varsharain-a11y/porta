@@ -20,7 +20,7 @@ Feature: Invoices of deleted account
      And account "bob" is deleted
 
     When I log in as provider "xyz.3scale.localhost"
-     And I go to the invoices issued by me
+     And I go to the invoices issued by me page
     Then I should see 1 invoice
 
     When I follow "2011-01-00000001"
