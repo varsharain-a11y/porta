@@ -612,3 +612,9 @@ ParameterType(
   regexp: /"(.+?)"/,
   transformer: ->(name) { name.from_sentence.map { |n| n.delete('"') } }
 )
+
+ParameterType(
+  name: 'month',
+  regexp: /\w+, *\d+/,
+  transformer: ->(date) { date }
+)

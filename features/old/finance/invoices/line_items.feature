@@ -9,7 +9,7 @@ Background:
     Given provider "foo.3scale.localhost" has "finance" switch allowed
     And an application plan "Fixed" of provider "foo.3scale.localhost" for 200 monthly
     And a buyer "zoidberg" signed up to application plan "Fixed"
-    And an invoice of buyer "zoidberg" for February, 2009 with items
+    And an invoice of buyer "zoidberg" for February, 2009 with items:
       | name | cost |
       | Old  |   42 |
 
