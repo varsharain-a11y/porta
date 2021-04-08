@@ -595,7 +595,7 @@ module PathsHelper
         admin_finance_invoices_path
 
       when /^the (invoice ".+?") page$/
-        invoice = Invoice.find_by!(id: $1)
+        invoice = Invoice.find_by!(friendly_id: $1)
         admin_finance_account_invoice_path(invoice.buyer_account, invoice)
 
       when /^the invoices page$/
