@@ -25,7 +25,7 @@ class ThreeScale::JobsTest < ActiveSupport::TestCase
 
   def test_task_serialize
     task = ThreeScale::Jobs::Task.new(Account, :new, org_name: 'Company')
-    serialized = YAML.dump([Account, :new, [{org_name: 'Company'}]])
+    serialized = YAML.dump([Account, :new, {org_name: 'Company'}])
     assert_equal({klass: "ThreeScale::Jobs::Task", init_args: serialized}, task.serialize)
   end
 
@@ -33,5 +33,16 @@ class ThreeScale::JobsTest < ActiveSupport::TestCase
     task = ThreeScale::Jobs::Task.new(Account, :new, org_name: 'Company')
     serialized = YAML.dump([Account, :new, [{org_name: 'Company'}]])
     assert_equal(task, ThreeScale::Jobs::Task.deserialize('klass' => 'ThreeScale::Jobs::Task', 'init_args' => serialized))
+  end
+
+  include ThreeScale::Jobs
+
+  ALL = MONTH + DAILY + BILLING + HOUR
+
+  ALL.each do |job|
+    define_method("test_#{job.name}") do
+      FactoryBot.create(:provider_account)
+      job.run
+    end
   end
 end
